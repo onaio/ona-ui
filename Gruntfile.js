@@ -26,6 +26,8 @@ module.exports = function (grunt) {
     yeomanConfig.app = require('./bower.json').appPath || yeomanConfig.app;
   } catch (e) {}
 
+  grunt.loadNpmTasks('grunt-ng-constant');
+
   grunt.initConfig({
     yeoman: yeomanConfig,
     watch: {
@@ -313,6 +315,31 @@ module.exports = function (grunt) {
           ]
         }
       }
+    },
+    ngconstant: {
+      options: {
+        space: '  '
+      },
+      dev: [
+        {
+          dest: '<%= yeoman.app %>/scripts/config.js',
+          wrap: '"use strict";\n\n <%= __ngModule %>',
+          name: 'OnaConfig',
+          constants: {
+            ONA_HOST: 'http://localhost:8000'
+          }
+        }
+      ],
+      dist: [
+        {
+          dest: '<%= yeoman.app %>/scripts/config.js',
+          wrap: '"use strict";\n\n <%= __ngModule %>',
+          name: 'OnaConfig',
+          constants: {
+            ONA_HOST: 'https://formhub.org'
+          }
+        }
+      ]
     }
   });
 
@@ -323,6 +350,7 @@ module.exports = function (grunt) {
 
     grunt.task.run([
       'clean:server',
+      'ngconstant:dev',
       'concurrent:server',
       'autoprefixer',
       'connect:livereload',
@@ -341,6 +369,7 @@ module.exports = function (grunt) {
 
   grunt.registerTask('build', [
     'clean:dist',
+    'ngconstant:dist',
     'useminPrepare',
     'concurrent:dist',
     'autoprefixer',

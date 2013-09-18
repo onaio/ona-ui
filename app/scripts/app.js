@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('onaUiApp', [])
+angular.module('onaUiApp', ['OnaConfig'])
     .config(function ($routeProvider) {
         $routeProvider
             .when('/', {
@@ -20,5 +20,4 @@ angular.module('onaUiApp', [])
             if (current.$$route && current.$$route.controller)
                 $rootScope.controller = current.$$route.controller;
         })
-    })
-    .constant('ONA_URL', 'http://localhost:8000');
+    });
