@@ -26,8 +26,6 @@ module.exports = function (grunt) {
     yeomanConfig.app = require('./bower.json').appPath || yeomanConfig.app;
   } catch (e) {}
 
-  grunt.loadNpmTasks('grunt-ng-constant');
-
   grunt.initConfig({
     yeoman: yeomanConfig,
     watch: {
@@ -70,7 +68,7 @@ module.exports = function (grunt) {
       options: {
         port: 3000,
         // Change this to '0.0.0.0' to access the server from outside.
-        hostname: 'localhost'
+        hostname: '0.0.0.0'
       },
       livereload: {
         options: {
@@ -377,7 +375,7 @@ module.exports = function (grunt) {
     'copy:dist',
     'cdnify',
     'ngmin',
-    'cssmin',
+    //'cssmin',
     'uglify',
     'rev',
     'usemin'
