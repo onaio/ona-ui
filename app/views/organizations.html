@@ -11,10 +11,10 @@
             <div class="body">
                 <div class="clearfix">
                     <div class="pull-left">
-                        <button class="btn btn-small btn-primary">
+                        <a href="#/organizations/new" class="btn btn-small btn-primary">
                             <i class="icon-plus"></i>
                             New Organization
-                        </button>
+                        </a>
                         <button class="btn btn-small btn-danger disabled">
                             <i class="icon-trash"></i>
                             Delete
@@ -46,7 +46,7 @@
                     <tbody>
                     <tr data-ng-repeat="org in orgs">
                         <td class="hidden-phone-portrait">{{$index+1}}</td>
-                        <td>{{org.name}}</td>
+                        <td><a href="#/organizations/{{org.org}}">{{org.name}}</a></td>
                         <td>{{org.city}}</td>
                         <td>{{org.country}}</td>
                         <td>
