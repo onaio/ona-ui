@@ -29,6 +29,20 @@ angular.module('onaUiApp', ['OnaConfig', 'slugifier'])
                 $rootScope.controller = current.$$route.controller;
         })
     })
+    .factory('Navigation', function($window, $location){
+        return {
+            redirect: function(scope, url){
+                $location.path(url);
+                if (!scope.$$phase) {
+                    //this will kickstart angular to notice the change
+                    scope.$apply();
+                }
+                else {
+                    $window.location = url;
+                }
+            }
+        }
+    })
     .directive('iCheck', function($timeout, $parse) {
         return {
             link: function($scope, element, $attrs) {

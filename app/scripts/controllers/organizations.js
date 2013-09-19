@@ -15,8 +15,13 @@ angular.module('onaUiApp')
             });
         $scope.orgs = orgs;
     })
-    .controller('OrganizationsNewCtrl', function($scope, $http, ONA_HOST, Slug){
+    .controller('OrganizationsNewCtrl', function($scope, $http, Navigation, ONA_HOST, Slug){
         $scope.org = {};
+        $scope.show_alert = false;
+
+        $scope.hideAlert = function(){
+            $scope.show_alert = false;
+        };
 
         $scope.setSlug = function(){
             if($scope.org_create_form.org_id.$pristine)
@@ -32,12 +37,12 @@ angular.module('onaUiApp')
 
         var makeRequest = function(data){
             var orgs_url = ONA_HOST + '/api/v1/orgs';
-            $http.post(orgs_url, data, {})
-                .success(function(){
-                    $scope.success = true;
+            $http.post(orgs_url, data, {withCredentials: true})
+                .success(function(data){
+                    Navigation.redirect($scope, '#/organizations/' + data.org);
                 })
-                .error(function(){
-                    $scope.success = false;
+                .error(function(data, status_code){
+                    $scope.show_alert = true;
                 });
         };
     })

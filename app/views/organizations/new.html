@@ -15,6 +15,10 @@
             <div class="body">
                 <form data-ng-submit="submit()" novalidate method="post" name="org_create_form" class="form-horizontal label-left">
                     <fieldset>
+                        <div data-ng-show="show_alert" class="alert alert-error">
+                            <button type="button" class="close" data-dismiss="alert" data-ng-click="hideAlert()">×</button>
+                            <strong>Error!</strong> An error occurred while creating the organisation
+                        </div>
                         <div class="control-group">
                             <label for="org_name" class="control-label">Organization Name
                                 <span class="required">*</span>
@@ -38,7 +42,7 @@
 
                             <div class="controls">
                                 <input data-ng-model="org.org" id="org_id" class="span6 parsley-validated" type="text" name="org_id" value="" required
-                                       data-ng-class="{'parsley-error': org_create_form.org_id.$invalid}" data-ng-pattern="/^[\w\-]+$/">{{org_create_form.org_id.$pristine}}
+                                       data-ng-class="{'parsley-error': org_create_form.org_id.$invalid}" data-ng-pattern="/^[\w\-]+$/">
                                 <ul data-ng-show="!org_create_form.org_id.$pristine && org_create_form.org_id.$invalid" class="parsley-error-list" style="display: block;">
                                     <li data-ng-show="org_create_form.org_id.$error.required" class="required" style="display: list-item;">This value is required.</li>
                                     <li data-ng-show="org_create_form.org_id.$error.pattern" style="display: list-item;">The ID cannot contain spaces and special characters.</li>
@@ -64,8 +68,9 @@
                         </div>
                         <div class="control-group">
                         <label for="country" class="control-label">Country <span class="required">*</span></label>
+
                         <div class="controls">
-                        <select data-ng-model="org.country" id="country" required="required"
+                        <select data-ng-model="org.country" id="country"
                                 data-placeholder="Select country" class="span7 chzn-select" name="country">
                         <option value="" selected="selected">---------</option>
                         <option value="AF">Afghanistan</option>
